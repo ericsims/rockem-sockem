@@ -59,6 +59,11 @@ body {
   background-image: url('./img/thwack.png');
   display: block;
 }
+
+.banana{
+background-image: url('./img/bananaman.gif');
+  display: block;
+}
 </style>
 
 </head>
@@ -96,6 +101,10 @@ $(document).ready(function(){
 		}
 		if(e.which == 115) {
 			reset();
+			$("#pow").toggleClass("hide");
+			$("#pow").toggleClass("banana");
+			clearTimeout(timeout);
+			timeout = setTimeout(removeFromPage, 500);
 		}
         
     });
