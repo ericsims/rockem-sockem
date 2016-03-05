@@ -1,0 +1,88 @@
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<style>
+@import url(https://fonts.googleapis.com/css?family=Press+Start+2P);
+
+body {
+  font-family: 'Press Start 2P', sans-serif; 
+}
+#scores {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+#scores  div {
+  min-width: 30vh;
+  margin: 5vh 5vw;
+  padding: 2vh 2vw;
+  font-size: 10vh;
+  text-align: center;
+} 
+
+#red-bot {
+  color: red;
+}
+
+#blue-bot {
+  color: blue;
+}
+</style>
+
+</head>
+<body>
+<div id="scores">
+  <div id="blue-bot">
+    <span class="name">BLUE</span>
+	<h1 id="blue-score">0</h1>
+  </div>
+  <div id="red-bot">
+    <span class="name">RED</span>
+	<h1 id="red-score">0</h1>
+  
+  </div>
+</div>
+<script>
+var red = 0;
+var blue = 0;
+
+var sounds = [new Audio('./sounds/1.wav'), new Audio('./sounds/2.wav'), new Audio('./sounds/3.mp3'), new Audio('./sounds/4.wav'), new Audio('./sounds/5.mp3')];
+
+$(document).ready(function(){
+    $(document).keypress(function(e){
+		if(e.which == 119) {
+			$("#blue-score").text(blue += 1);
+			playRandomSound();
+		}
+		if(e.which == 97) {
+			$("#red-score").text(red += 1);
+			playRandomSound();
+		}
+		if(e.which == 13) {
+			reset();
+		}
+        
+    });
+});
+
+function playRandomSound(){
+	var num = Math.floor(Math.random()*4);
+	sounds[num].play();
+	console.log(num);
+}
+
+function reset() {
+	red = 0;
+	blue = 0;
+	$("#blue-score").text(0);
+	$("#red-score").text(0);
+	new Audio('./sounds/bell.wav').play();
+}
+
+</script>
+
+</body>
+
+</html>
