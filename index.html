@@ -29,6 +29,36 @@ body {
 #blue-bot {
   color: blue;
 }
+
+#pow {
+	z-index: 100;
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.hide {
+  display: none;
+}
+.bam {
+  background-image: url('./img/bam.png');
+  display: block;
+}
+.bang {
+  background-image: url('./img/bang.png');
+  display: block;
+}
+.pow{
+  background-image: url('./img/pow.png');
+  display: block;
+}
+.thwack {
+  background-image: url('./img/thwack.png');
+  display: block;
+}
 </style>
 
 </head>
@@ -44,21 +74,25 @@ body {
   
   </div>
 </div>
+  <div id="pow" class="hide"></div>
 <script>
 var red = 0;
 var blue = 0;
 
+var timeout;
 var sounds = [new Audio('./sounds/1.wav'), new Audio('./sounds/2.wav'), new Audio('./sounds/3.mp3'), new Audio('./sounds/4.wav'), new Audio('./sounds/5.mp3')];
-
+var images = ["bam", "pow", "thwack", "bang"];
 $(document).ready(function(){
     $(document).keypress(function(e){
 		if(e.which == 119) {
 			$("#blue-score").text(blue += 1);
 			playRandomSound();
+			showRandomPicture();
 		}
 		if(e.which == 97) {
 			$("#red-score").text(red += 1);
 			playRandomSound();
+			showRandomPicture();
 		}
 		if(e.which == 13) {
 			reset();
@@ -71,6 +105,19 @@ function playRandomSound(){
 	var num = Math.floor(Math.random()*4);
 	sounds[num].play();
 	console.log(num);
+}
+
+function showRandomPicture(){
+	var num = Math.floor(Math.random()*4);
+	$("#pow").toggleClass("hide");
+	$("#pow").toggleClass(images[num]);
+	clearTimeout(timeout);
+	timeout = setTimeout(removeFromPage, 300);
+}
+
+function removeFromPage(){
+	$("#pow").removeClass();
+	$("#pow").toggleClass("hide");
 }
 
 function reset() {
